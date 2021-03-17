@@ -27,7 +27,7 @@ class SQLCreateTableBuilder {
 
   SQLCreateTableBuilder(
     this.tableName, {
-    this.columns,
+    this.columns = const [],
   });
 
   String build() {
