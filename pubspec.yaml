@@ -1,6 +1,7 @@
 name: sudo_sql_builder
 description: SQL Builder for dart
 version: 1.0.0
+homepage: https://sudo.dog
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
