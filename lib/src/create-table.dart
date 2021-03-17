@@ -9,7 +9,7 @@ class SQLCreateTableColumn {
   SQLCreateTableColumn(
     this.name,
     this.dataType, {
-    this.primaryKey,
+    this.primaryKey = false,
   });
 
   String build() {
@@ -23,22 +23,30 @@ class SQLCreateTableColumn {
 class SQLCreateTableBuilder {
   final String tableName;
 
-  final List<SQLCreateTableColumn> columns;
+  final List<SQLCreateTableColumn> columns = [];
 
   SQLCreateTableBuilder(
     this.tableName, {
-    this.columns = const [],
-  });
+    List<SQLCreateTableColumn> columns,
+  }) {
+    if (columns != null) {
+      this.columns.addAll(columns);
+    }
+  }
+
+  void addColumn(SQLCreateTableColumn column) {
+    this.columns.add(column);
+  }
 
   String build() {
     if (this.columns.length == 0) {
-      return "CREATE TABLE ${this.tableName}";
+      return "CREATE TABLE ${this.tableName};";
     }
 
     final String builtColumns = this.columns.map((SQLCreateTableColumn column) {
       return column.build();
     }).join(', ');
 
-    return "CREATE TABLE ${this.tableName} ($builtColumns)";
+    return "CREATE TABLE ${this.tableName} ($builtColumns);";
   }
 }
